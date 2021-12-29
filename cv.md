@@ -17,15 +17,24 @@ In December 2021, I decided to change my profession and started studying at RS S
 
 ## Code Examples
 ```javascript
-function dataReverse(data) {
-  if (data.length===0) return []
-  const arrayBytes = [];
-  const bytes = data.length / 8;
-  for (var i = 0; i < bytes; i++){
-    arrayBytes.push(data.splice(0,8));
-  }
-  return arrayBytes.reverse().join().split(',').map(i=>i*1);
-}
+// хотя в условии только два числа, ничего не мешает складывать цифры
+// произвольного количества чисел, так и сделаем
+const add = (...nums) => 
+  // вернуть нуно число, добавляем плюсик
+    +[...nums]
+    // сортируем числа, первым должно быть самое большое
+    .sort((a,b) => b-a)
+    // превращаем в строку и переворачиваем
+    .map(a=>[...""+a].reverse())
+    // скастуем каждый элемент массива в число
+    .map(a=>a.map(e=>+e))
+    // сливаем поразрядко всё в первый массив и оставляем только его
+    .map((e,i,a) => {e.map((e1,i1) => a[0][i1] += (i!=0)? e1: 0); return a[0]})[0]
+    // переворачиваем обратно
+    .reverse()
+    // собираем все элементы массива в строку
+    .reduce((acc,e)=>acc+e,"")
+    // из строки в число скастуем тем самым плюсиком в начале
 ```
 
 ## Work experience:
